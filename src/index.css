@@ -1,0 +1,177 @@
+/* Studio Lumio Props Design System & CSS Styles */
+
+:root {
+  --bg-cream: #f4f0ea;
+  --text-dark: #1b1816;
+  --studio-brown: #4d3d30;
+  --card-bg: #e8e0d4;
+  --border-subtle: rgba(77, 61, 48, 0.2);
+  --border-input: #8e7867;
+  
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: min(12px, 0.6944vw);
+  line-height: 1;
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  overscroll-behavior: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(77, 61, 48, 0.25);
+  border-radius: 15px;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(77, 61, 48, 0.45);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* --- Signature Lumio Button --- */
+.btn {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  white-space: nowrap;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: max(6px, 0.75rem) max(6px, 0.75rem) max(6px, 0.75rem) max(14px, 1.6rem);
+  gap: max(1rem, 8px);
+  border: 1px solid var(--studio-brown);
+  border-radius: max(6.4rem, 50px);
+  letter-spacing: -0.03em;
+  height: max(35px, 4.5rem);
+  overflow: hidden;
+  color: var(--text-dark);
+  font-size: max(13px, 1.4rem);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  user-select: none;
+}
+
+.btn:hover {
+  border-color: #1b1816;
+}
+
+.btn:hover .btn_link_inner {
+  transform: translateY(-100%);
+}
+
+.btn:hover .btn_svg svg {
+  transform: translateX(max(24px, 2.8rem));
+}
+
+.btn_link {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.btn_link_inner {
+  display: flex;
+  transform: translateY(0);
+  transition: transform 0.85s var(--ease-out-expo);
+  position: relative;
+}
+
+.btn_link_inner::after {
+  content: attr(data-txt);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.btn_svg {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: max(24px, 2.8rem);
+  height: max(24px, 2.8rem);
+  min-width: max(24px, 2.8rem);
+  min-height: max(24px, 2.8rem);
+  gap: max(8px, 1.1rem);
+  padding-right: max(4px, 0.6rem);
+  overflow: hidden;
+  background: var(--studio-brown);
+  border-radius: 40px;
+}
+
+.btn_svg svg {
+  width: max(14px, 1.6rem);
+  min-width: max(14px, 1.6rem);
+  height: max(14px, 1.6rem);
+  min-height: max(14px, 1.6rem);
+  transition: transform 0.85s var(--ease-out-expo);
+}
+
+@media (min-width: 900px) {
+  .desktop-only-link {
+    display: inline-block !important;
+  }
+  .desktop-aside-canvas {
+    display: block !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #awwwards {
+    display: none;
+  }
+}
