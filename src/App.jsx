@@ -9,6 +9,7 @@ import { BriefingSection } from './components/BriefingSection';
 import { FeaturedShowcase } from './components/FeaturedShowcase';
 import { StorySection } from './components/StorySection';
 import { LatestArrivals } from './components/LatestArrivals';
+import { SanctuarySection } from './components/SanctuarySection';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -28,6 +29,7 @@ const MainContent = () => {
         <FeaturedShowcase />
         <StorySection />
         <LatestArrivals />
+        <SanctuarySection />
         <NewsletterSection />
       </main>
 
