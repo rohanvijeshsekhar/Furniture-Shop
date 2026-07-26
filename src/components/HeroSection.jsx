@@ -5,42 +5,42 @@ import { ArrowRight } from 'lucide-react';
 export const HeroSection = () => {
   const containerRef = useRef(null);
 
-  // Track scroll progress within the 220vh sticky hero container for precise scroll keyframing
+  // Responsive tight 140vh scroll track so all elements arrive immediately as PROPS reaches top
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start']
   });
 
   // 1. Background Image Zoom-Out camera effect
-  const bgScale = useTransform(scrollYProgress, [0, 0.85], [1.45, 0.95]);
-  const bgY = useTransform(scrollYProgress, [0, 0.85], ['0%', '6%']);
+  const bgScale = useTransform(scrollYProgress, [0, 0.65], [1.45, 0.95]);
+  const bgY = useTransform(scrollYProgress, [0, 0.65], ['0%', '6%']);
 
-  // 2. Layer 1: Giant "PROPS" Watermark (Phase 1: [0, 0.28])
-  const propsScale = useTransform(scrollYProgress, [0, 0.28], [1, 0.75]);
-  const propsY = useTransform(scrollYProgress, [0, 0.28], ['0%', '-45%']);
-  const propsOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  // 2. Layer 1: Giant "PROPS" Watermark translates up to top immediately matching Image 2
+  const propsScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.72]);
+  const propsY = useTransform(scrollYProgress, [0, 0.3], ['0%', '-42%']);
+  const propsOpacity = useTransform(scrollYProgress, [0, 0.28], [1, 0.25]);
 
-  // 3. Layer 2: Main Headline "WHERE STYLE ENDURES..." (Phase 2: enters [0.08, 0.25], holds, then fades out [0.38, 0.48] to avoid collision)
-  const headlineScale = useTransform(scrollYProgress, [0.08, 0.28, 0.48], [0.85, 1, 1.05]);
-  const headlineY = useTransform(scrollYProgress, [0.08, 0.28, 0.48], [60, 0, -40]);
-  const headlineOpacity = useTransform(scrollYProgress, [0.08, 0.22, 0.38, 0.46], [0, 1, 1, 0]);
+  // 3. Layer 2: Main Headline "WHERE STYLE ENDURES..." arrives early as PROPS moves top
+  const headlineScale = useTransform(scrollYProgress, [0.04, 0.25], [0.85, 1]);
+  const headlineY = useTransform(scrollYProgress, [0.04, 0.25], [50, 0]);
+  const headlineOpacity = useTransform(scrollYProgress, [0.04, 0.2, 0.35, 0.45], [0, 1, 1, 0]);
 
-  // 4. Layer 3: Center Product Card (Phase 3: enters AFTER headline fades out: [0.48, 0.75])
-  const cardY = useTransform(scrollYProgress, [0.48, 0.75], [120, 0]);
-  const cardScale = useTransform(scrollYProgress, [0.48, 0.75], [0.85, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0.48, 0.68], [0, 1]);
+  // 4. Layer 3: Center Product Card (Wooden Quad-Shelf $900.00) arrives early as requested
+  const cardY = useTransform(scrollYProgress, [0.15, 0.4], [140, 0]);
+  const cardScale = useTransform(scrollYProgress, [0.15, 0.4], [0.85, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0.15, 0.38], [0, 1]);
 
-  // 5. Layer 4: Giant "PRODUCT OF THE DAY" Watermark (Phase 4: enters with card: [0.52, 0.82])
-  const potdOpacity = useTransform(scrollYProgress, [0.52, 0.78], [0, 1]);
-  const potdScale = useTransform(scrollYProgress, [0.52, 0.78], [0.88, 1]);
-  const potdY = useTransform(scrollYProgress, [0.52, 0.78], [40, 0]);
+  // 5. Layer 4: Giant "PRODUCT OF THE DAY" Watermark Text arrives early matching Image 3
+  const potdOpacity = useTransform(scrollYProgress, [0.18, 0.42], [0, 1]);
+  const potdScale = useTransform(scrollYProgress, [0.18, 0.42], [0.88, 1]);
+  const potdY = useTransform(scrollYProgress, [0.18, 0.42], [50, 0]);
 
   return (
     <div
       ref={containerRef}
       style={{
         position: 'relative',
-        height: '220vh', // Extended scroll track for aligned non-overlapping keyframe sequence
+        height: '140vh', // Tight responsive scroll track for early arrival
         backgroundColor: '#4d3d30'
       }}
     >
@@ -89,11 +89,11 @@ export const HeroSection = () => {
           />
         </motion.div>
 
-        {/* Top-Left Box: Tagline + EXPLORE COLLECTION pill button matching Studio Lumio */}
+        {/* Top-Left Box: Tagline + EXPLORE COLLECTION pill button matching Image 2 */}
         <div
           style={{
             position: 'absolute',
-            top: 'clamp(95px, 14vh, 140px)',
+            top: 'clamp(90px, 13vh, 135px)',
             left: 'clamp(1.6rem, 4vw, 4rem)',
             zIndex: 5,
             maxWidth: '320px',
@@ -129,7 +129,7 @@ export const HeroSection = () => {
           </a>
         </div>
 
-        {/* Layer 1: Giant "PROPS" Watermark */}
+        {/* Layer 1: Giant "PROPS" Watermark translates up matching Image 2 */}
         <motion.div
           style={{
             position: 'absolute',
@@ -163,7 +163,7 @@ export const HeroSection = () => {
           </h1>
         </motion.div>
 
-        {/* Layer 2: Main Headline "WHERE STYLE ENDURES: TIMELESS FURNITURE FOR YOUR STORY" (Fades out cleanly before card enters) */}
+        {/* Layer 2: Main Headline "WHERE STYLE ENDURES: TIMELESS FURNITURE FOR YOUR STORY" */}
         <motion.div
           style={{
             position: 'relative',
@@ -196,11 +196,11 @@ export const HeroSection = () => {
           </h2>
         </motion.div>
 
-        {/* Layer 3: Center Product Card (Wooden Quad-Shelf $900.00) (Enters cleanly after headline fades out) */}
+        {/* Layer 3: Center Product Card (Wooden Quad-Shelf $900.00) arrives early matching Image 3 */}
         <motion.div
           style={{
             position: 'absolute',
-            bottom: 'clamp(80px, 12vh, 140px)',
+            bottom: 'clamp(70px, 10vh, 120px)',
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 4,
@@ -230,11 +230,11 @@ export const HeroSection = () => {
           />
         </motion.div>
 
-        {/* Layer 4: Giant "PRODUCT OF THE DAY" Watermark Text */}
+        {/* Layer 4: Giant "PRODUCT OF THE DAY" Watermark Text arrives early matching Image 3 */}
         <motion.div
           style={{
             position: 'absolute',
-            bottom: '1rem',
+            bottom: '0.8rem',
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 3,
