@@ -10,7 +10,7 @@ export const SanctuarySection = () => {
     offset: ['start end', 'end start']
   });
 
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.08, 0.98]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.1, 0.96]);
   const textY = useTransform(scrollYProgress, [0.1, 0.5], [40, 0]);
   const textOpacity = useTransform(scrollYProgress, [0.1, 0.45], [0, 1]);
 
@@ -19,14 +19,14 @@ export const SanctuarySection = () => {
       ref={containerRef}
       id="sanctuary"
       style={{
-        padding: 'clamp(4rem, 8vw, 10rem) clamp(1.6rem, 4vw, 4rem)',
+        padding: 'clamp(4rem, 8vw, 10rem) clamp(1.6rem, 3vw, 3rem)',
         backgroundColor: '#f4f0ea',
         overflow: 'hidden'
       }}
     >
       <div
         style={{
-          maxWidth: '1600px',
+          maxWidth: '1800px',
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
@@ -34,7 +34,7 @@ export const SanctuarySection = () => {
           alignItems: 'center'
         }}
       >
-        {/* Left Side: Significantly Bigger Sanctuary Lookbook Interior Image */}
+        {/* Left Side: Massive Hero-Scale Sanctuary Lookbook Interior Image */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -43,11 +43,11 @@ export const SanctuarySection = () => {
           style={{
             position: 'relative',
             width: '100%',
-            height: 'clamp(540px, 75vh, 800px)',
+            height: 'clamp(680px, 88vh, 980px)',
             borderRadius: '6px',
             overflow: 'hidden',
             backgroundColor: '#e8e0d4',
-            boxShadow: '0 25px 55px rgba(77, 61, 48, 0.12)'
+            boxShadow: '0 30px 65px rgba(77, 61, 48, 0.14)'
           }}
         >
           <motion.img
@@ -72,12 +72,12 @@ export const SanctuarySection = () => {
             flexDirection: 'column',
             alignItems: 'flex-start',
             gap: '2.5rem',
-            maxWidth: '460px'
+            maxWidth: '500px'
           }}
         >
           <p
             style={{
-              fontSize: 'clamp(1.6rem, 2.4vw, 2.4rem)',
+              fontSize: 'clamp(1.8rem, 2.6vw, 2.8rem)',
               fontWeight: 400,
               lineHeight: 1.45,
               color: '#1b1816',
