@@ -5,42 +5,42 @@ import { ArrowRight } from 'lucide-react';
 export const HeroSection = () => {
   const containerRef = useRef(null);
 
-  // Track scroll progress within the 180vh sticky hero container
+  // Track scroll progress within the 220vh sticky hero container for precise scroll keyframing
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start']
   });
 
   // 1. Background Image Zoom-Out camera effect
-  const bgScale = useTransform(scrollYProgress, [0, 0.75], [1.45, 0.95]);
-  const bgY = useTransform(scrollYProgress, [0, 0.75], ['0%', '6%']);
+  const bgScale = useTransform(scrollYProgress, [0, 0.85], [1.45, 0.95]);
+  const bgY = useTransform(scrollYProgress, [0, 0.85], ['0%', '6%']);
 
-  // 2. Layer 1: Giant "PROPS" Watermark zooms out & translates up while fading out
-  const propsScale = useTransform(scrollYProgress, [0, 0.45], [1, 0.75]);
-  const propsY = useTransform(scrollYProgress, [0, 0.45], ['0%', '-45%']);
-  const propsOpacity = useTransform(scrollYProgress, [0, 0.38], [1, 0]);
+  // 2. Layer 1: Giant "PROPS" Watermark (Phase 1: [0, 0.28])
+  const propsScale = useTransform(scrollYProgress, [0, 0.28], [1, 0.75]);
+  const propsY = useTransform(scrollYProgress, [0, 0.28], ['0%', '-45%']);
+  const propsOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
 
-  // 3. Layer 2: Main Headline "WHERE STYLE ENDURES..." zooms in & reveals
-  const headlineScale = useTransform(scrollYProgress, [0.15, 0.6], [0.85, 1.05]);
-  const headlineY = useTransform(scrollYProgress, [0.15, 0.6], [70, -20]);
-  const headlineOpacity = useTransform(scrollYProgress, [0.15, 0.55], [0, 1]);
+  // 3. Layer 2: Main Headline "WHERE STYLE ENDURES..." (Phase 2: enters [0.08, 0.25], holds, then fades out [0.38, 0.48] to avoid collision)
+  const headlineScale = useTransform(scrollYProgress, [0.08, 0.28, 0.48], [0.85, 1, 1.05]);
+  const headlineY = useTransform(scrollYProgress, [0.08, 0.28, 0.48], [60, 0, -40]);
+  const headlineOpacity = useTransform(scrollYProgress, [0.08, 0.22, 0.38, 0.46], [0, 1, 1, 0]);
 
-  // 4. Center Peaking Product Card featuring Wooden Quad-Shelf ($900.00) matching Screenshot 2
-  const cardY = useTransform(scrollYProgress, [0.35, 0.8], [160, 0]);
-  const cardScale = useTransform(scrollYProgress, [0.35, 0.8], [0.85, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0.35, 0.65], [0, 1]);
+  // 4. Layer 3: Center Product Card (Phase 3: enters AFTER headline fades out: [0.48, 0.75])
+  const cardY = useTransform(scrollYProgress, [0.48, 0.75], [120, 0]);
+  const cardScale = useTransform(scrollYProgress, [0.48, 0.75], [0.85, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0.48, 0.68], [0, 1]);
 
-  // 5. Giant "PRODUCT OF THE DAY" Watermark Text at the bottom matching Screenshot 2
-  const potdOpacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 1]);
-  const potdScale = useTransform(scrollYProgress, [0.4, 0.8], [0.88, 1]);
-  const potdY = useTransform(scrollYProgress, [0.4, 0.8], [50, 0]);
+  // 5. Layer 4: Giant "PRODUCT OF THE DAY" Watermark (Phase 4: enters with card: [0.52, 0.82])
+  const potdOpacity = useTransform(scrollYProgress, [0.52, 0.78], [0, 1]);
+  const potdScale = useTransform(scrollYProgress, [0.52, 0.78], [0.88, 1]);
+  const potdY = useTransform(scrollYProgress, [0.52, 0.78], [40, 0]);
 
   return (
     <div
       ref={containerRef}
       style={{
         position: 'relative',
-        height: '180vh',
+        height: '220vh', // Extended scroll track for aligned non-overlapping keyframe sequence
         backgroundColor: '#4d3d30'
       }}
     >
@@ -89,22 +89,22 @@ export const HeroSection = () => {
           />
         </motion.div>
 
-        {/* Top-Left Box: Tagline + EXPLORE COLLECTION pill button matching Screenshot 1 */}
+        {/* Top-Left Box: Tagline + EXPLORE COLLECTION pill button matching Studio Lumio */}
         <div
           style={{
             position: 'absolute',
-            top: 'clamp(100px, 15vh, 150px)',
+            top: 'clamp(95px, 14vh, 140px)',
             left: 'clamp(1.6rem, 4vw, 4rem)',
             zIndex: 5,
             maxWidth: '320px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.6rem'
+            gap: '1.4rem'
           }}
         >
           <p
             style={{
-              fontSize: 'max(13px, 1.4rem)',
+              fontSize: 'max(12px, 1.35rem)',
               fontWeight: 500,
               lineHeight: 1.35,
               color: '#f4f0ea',
@@ -163,7 +163,7 @@ export const HeroSection = () => {
           </h1>
         </motion.div>
 
-        {/* Layer 2: Main Headline "WHERE STYLE ENDURES: TIMELESS FURNITURE FOR YOUR STORY" matching Screenshot 1 */}
+        {/* Layer 2: Main Headline "WHERE STYLE ENDURES: TIMELESS FURNITURE FOR YOUR STORY" (Fades out cleanly before card enters) */}
         <motion.div
           style={{
             position: 'relative',
@@ -196,7 +196,7 @@ export const HeroSection = () => {
           </h2>
         </motion.div>
 
-        {/* Layer 3: Center Peaking Product Card (Wooden Quad-Shelf $900.00) matching Screenshot 2 */}
+        {/* Layer 3: Center Product Card (Wooden Quad-Shelf $900.00) (Enters cleanly after headline fades out) */}
         <motion.div
           style={{
             position: 'absolute',
@@ -204,8 +204,8 @@ export const HeroSection = () => {
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 4,
-            width: 'clamp(260px, 30vw, 380px)',
-            height: 'clamp(240px, 28vh, 340px)',
+            width: 'clamp(260px, 28vw, 360px)',
+            height: 'clamp(240px, 26vh, 320px)',
             backgroundColor: '#f4f0ea',
             borderRadius: '6px',
             overflow: 'hidden',
@@ -230,7 +230,7 @@ export const HeroSection = () => {
           />
         </motion.div>
 
-        {/* Layer 4: Giant "PRODUCT OF THE DAY" Watermark Text matching Screenshot 2 */}
+        {/* Layer 4: Giant "PRODUCT OF THE DAY" Watermark Text */}
         <motion.div
           style={{
             position: 'absolute',
